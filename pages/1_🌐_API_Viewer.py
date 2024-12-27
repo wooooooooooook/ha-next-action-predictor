@@ -18,8 +18,8 @@ st.set_page_config(
 
 class HAApi:
     def __init__(self):
-        self.base_url = "http://192.168.0.39:8123/api"  # HA 주소
-        self.token = os.getenv('HA_token')
+        self.base_url = os.getenv('HA_URL')  # HA 주소
+        self.token = os.getenv('HA_TOKEN')
         self.headers = {
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json",
@@ -28,7 +28,7 @@ class HAApi:
     def get_states(self):
         """현재 모든 엔티티의 상태를 조회"""
         try:
-            response = requests.get(f"{self.base_url}/states", headers=self.headers)
+            response = requests.get(f"{self.base_url}/api/states", headers=self.headers)
             response.raise_for_status()
             return response.json()
         except Exception as e:
